@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "curso")
+@Table(name = "inscripcion")
 @Getter
 @Setter
 public class Inscripcion {
@@ -32,6 +32,13 @@ public class Inscripcion {
     private LocalDate fecha;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")    
+    @Column(name = "estado")
     private Estado estado;
+
+    @Override
+    public String toString() {
+        return "Inscripcion[id=" + id + ", curso=" + curso + ", estudiante=" + estudiante + ", fecha=" + fecha
+                + ", estado=" + estado + "]";
+    }
+
 }

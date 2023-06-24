@@ -1,13 +1,14 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "curso")
+@Table(name = "estudiante")
 @Getter
 @Setter
 public class Estudiante {
@@ -30,6 +31,7 @@ public class Estudiante {
     @Column(name = "nacimiento")
     private LocalDate nacimiento;
 
-    @Transient
-    private int edad;
+    public int getEdad() {
+        return Period.between(nacimiento, LocalDate.now()).getYears();
+    }
 }
