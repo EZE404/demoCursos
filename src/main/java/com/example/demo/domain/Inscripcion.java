@@ -3,13 +3,17 @@ package com.example.demo.domain;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "inscripcion")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Inscripcion {
 
     public enum Estado {
