@@ -7,20 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 
 import com.example.demo.domain.Curso;
 import com.example.demo.domain.EstadoConverter;
 import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion;
+import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.CursoRepo;
 import com.example.demo.repository.EstudianteRepo;
 import com.example.demo.repository.InscripcionRepo;
+import com.example.demo.service.InscripcionService;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -41,6 +40,11 @@ public class DemoApplication {
 	// Para usarlo en evaluación de expresiones
 	EstadoConverter estadoConverter = new EstadoConverter();
 	PageRequest pageable = PageRequest.of(1, 5);
+
+	// Para la parte de armar service
+
+	@Autowired
+	InscripcionService inscripcionService;
 
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {
@@ -67,7 +71,7 @@ public class DemoApplication {
 
 			Estudiante franco = new Estudiante(null,
 					"Franco", "Albornoz", "11222333",
-					"eze@correo", LocalDate.of(1991, Month.SEPTEMBER, 16));
+					"eze@correo", LocalDate.of(2010, Month.SEPTEMBER, 16));
 
 			Estudiante pablo = new Estudiante(null,
 					"Pablo", "Cabrera", "11222444",
@@ -108,11 +112,22 @@ public class DemoApplication {
 			inscripcionRepo.save(inscripcion5);
 			inscripcionRepo.save(inscripcion6);
 
-			System.out.println(inscripcionRepo.findAll());
-			System.out.println(cursoRepo.findById(2L));
+			// PROBANDO SERVICES Y CONSULTAS
+
+			inscripcionService.probarConsultas();
+			agregarInscripcion();
 
 		};
 
 	}
 
+	void agregarInscripcion() {
+		try {
+			inscripcionService.agregarInscripcion(1L, 2L);
+		} catch (WrongIdException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 }

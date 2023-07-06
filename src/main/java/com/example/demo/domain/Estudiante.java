@@ -38,4 +38,11 @@ public class Estudiante {
     public int getEdad() {
         return Period.between(nacimiento, LocalDate.now()).getYears();
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", email="
+                + email + ", nacimiento=" + nacimiento + "]";
+    }
+
 }

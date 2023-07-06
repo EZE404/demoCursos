@@ -30,4 +30,11 @@ public class Curso {
 
     @Column(name = "fin")
     private LocalDate fin;
+
+    @Override
+    public String toString() {
+        return "Curso [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", inicio=" + inicio
+                + ", fin=" + fin + "]";
+    }
+
 }
