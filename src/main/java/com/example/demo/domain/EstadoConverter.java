@@ -8,11 +8,13 @@ public class EstadoConverter implements AttributeConverter<Inscripcion.Estado, S
 
     @Override
     public String convertToDatabaseColumn(Inscripcion.Estado estado) {
-        return estado.toString(); // Convert Enum to string
+        StringBuffer sb = new StringBuffer(estado.toString().toLowerCase());
+        sb.replace(0, 1, estado.toString().substring(0, 1).toUpperCase());
+        return sb.toString(); // Convert Enum to string first char uppercase
     }
 
     @Override
     public Inscripcion.Estado convertToEntityAttribute(String dbData) {
-        return Inscripcion.Estado.valueOf(dbData); // Convert string to Enum
+        return Inscripcion.Estado.valueOf(dbData.toUpperCase()); // Convert string to Enum
     }
 }

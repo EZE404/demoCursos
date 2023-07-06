@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.domain.Curso;
+import com.example.demo.domain.EstadoConverter;
 import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion;
 import com.example.demo.repository.CursoRepo;
@@ -32,6 +33,9 @@ public class DemoApplication {
 
 	@Autowired
 	InscripcionRepo inscripcionRepo;
+
+	// Para usarlo en evaluación de expresiones
+	EstadoConverter estadoConverter = new EstadoConverter();
 
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {

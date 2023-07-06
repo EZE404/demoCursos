@@ -37,8 +37,9 @@ public class Inscripcion {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING) // Deshabilitado para usar converter personalizado
     @Column(name = "estado")
+    //@Convert(converter = EstadoConverter.class) // Deshabilitado porque EstadoConverter está con autoApply
     private Estado estado;
 
     @Override
