@@ -2,6 +2,8 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,4 +20,7 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Long> {
     List<Estudiante> findAllWhereDniGreaterThan20000000AndApellidoIsRomero();
 
     List<Estudiante> findByDniGreaterThanAndApellidoIsIgnoreCase(String dni, String apellido);
+
+    // Listar los estudiantes de forma paginada y ordenados por dni
+    Page<Estudiante> findByOrderByDniAsc(Pageable pageable);
 }

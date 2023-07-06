@@ -11,7 +11,7 @@ import com.example.demo.domain.Inscripcion;
 public interface InscripcionRepo extends JpaRepository<Inscripcion, Long>{
     
     // Listar todas las inscripciones rechazadas o pendiente
-    @Query("SELECT i FROM Inscripcion i WHERE i.estado = 'PENDIENTE' OR i.estado = 'RECHAZADA'")
+    @Query("SELECT i FROM Inscripcion i WHERE i.estado = 'Pendiente' OR i.estado = 'Rechazada'")
     List<Inscripcion> findAllWhereEstadoIsPendienteOrRechazada();
 
     List<Inscripcion> findByEstadoIsOrEstadoIs(Inscripcion.Estado estado1, Inscripcion.Estado estado2);

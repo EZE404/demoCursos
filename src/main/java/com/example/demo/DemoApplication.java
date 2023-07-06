@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.example.demo.domain.Curso;
 import com.example.demo.domain.EstadoConverter;
@@ -36,6 +40,7 @@ public class DemoApplication {
 
 	// Para usarlo en evaluación de expresiones
 	EstadoConverter estadoConverter = new EstadoConverter();
+	PageRequest pageable = PageRequest.of(1, 5);
 
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {
