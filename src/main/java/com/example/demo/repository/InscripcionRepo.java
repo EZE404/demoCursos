@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Inscripcion;
-
 
 public interface InscripcionRepo extends JpaRepository<Inscripcion, Long>{
     
@@ -24,6 +24,9 @@ public interface InscripcionRepo extends JpaRepository<Inscripcion, Long>{
     List<Inscripcion> findByEstadoIs(Inscripcion.Estado estado);
 
     // Listar todas las inscripciones en base a un parámetro de estado utilizando consulta nativa
-    @Query(value = "SELECT i.* FROM inscripcion i WHERE i.estado = :estado", nativeQuery = true)
-    List<Inscripcion> findAllWhereEstadoIsUsingNative(Inscripcion.Estado estado);
+    
+    //@Query(value = "SELECT i.* FROM inscripcion i WHERE i.estado = :estado", nativeQuery = true)
+    @Query(name = "Inscripcion.findAllWhereEstadoIsUsingNative", nativeQuery = true)
+    List<Inscripcion> findAllWhereEstadoIsUsingNative(@Param("estado") Inscripcion.Estado estado);
+
 }
