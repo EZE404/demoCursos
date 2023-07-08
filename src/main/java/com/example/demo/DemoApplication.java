@@ -55,7 +55,7 @@ public class DemoApplication {
 
 			// PROBANDO SERVICES Y CONSULTAS
 
-			inscripcionService.probarConsultas();
+			//inscripcionService.probarConsultas();
 			agregarInscripcion();
 
 		};
@@ -64,7 +64,7 @@ public class DemoApplication {
 
 	void agregarInscripcion() {
 		try {
-			inscripcionService.agregarInscripcion(1L, 2L);
+			inscripcionService.save(1L, 2L);
 		} catch (WrongIdException e) {
 			System.out.println(e.getMessage());
 		} catch (Exception e) {

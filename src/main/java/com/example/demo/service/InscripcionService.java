@@ -11,6 +11,7 @@ import com.example.demo.domain.Curso;
 import com.example.demo.domain.EstadoConverter;
 import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion;
+import com.example.demo.dto.InscripcionDto;
 import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.CursoRepo;
 import com.example.demo.repository.EstudianteRepo;
@@ -60,7 +61,7 @@ public class InscripcionService {
         }
 
         @Transactional
-        public void agregarInscripcion(@NotNull @Positive Long curso_id, @NotNull @Positive Long estudiante_id)
+        public void save(@NotNull @Positive Long curso_id, @NotNull @Positive Long estudiante_id)
                         throws WrongIdException {
 
                 Curso curso = cursoRepo.findById(curso_id).orElseThrow(() -> new WrongIdException("Curso"));
@@ -81,11 +82,15 @@ public class InscripcionService {
                 System.out.println(inscripcion);
         }
 
-        public Inscripcion findById(long id) {
-                return inscripcionRepo.findById(Long.valueOf(id)).get();
+        public InscripcionDto findById(long id) {
+                return inscripcionRepo.findById(Long.valueOf(id)).get().convertToDto();
         }
 
-        public List<Inscripcion> findAll() {
-                return inscripcionRepo.findAll();
+        public List<InscripcionDto> findAll() {
+                return inscripcionRepo.findAll().stream().map(Inscripcion::convertToDto).toList();
+        }
+
+        public void delete(long id) {
+                inscripcionRepo.deleteById(Long.valueOf(id));
         }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Curso;
+import com.example.demo.dto.CursoDto;
 import com.example.demo.repository.CursoRepo;
 
 @Service
@@ -13,15 +14,20 @@ public class CursoService {
     @Autowired
     private CursoRepo cursoRepo;
 
-    public Curso findById(long id) {
-        return cursoRepo.findById(Long.valueOf(id)).get();
+    public CursoDto findById(long id) {
+        return cursoRepo.findById(Long.valueOf(id)).get().convertToDto();
     }
 
-    public List<Curso> findAll() {
-        return cursoRepo.findAll();
+    public List<CursoDto> findAll() {
+        return cursoRepo.findAll().stream().map(Curso::convertToDto).toList();
     }
 
-    public void save(Curso e) {
-        cursoRepo.save(e);
+    public void save(CursoDto e) {
+        Curso curso = new Curso(null, e.getNombre(), e.getDescripcion(), e.getInicio(), e.getFin());
+        cursoRepo.save(curso);
+    }
+
+    public void delete(long id) {
+        cursoRepo.deleteById(Long.valueOf(id));
     }
 }

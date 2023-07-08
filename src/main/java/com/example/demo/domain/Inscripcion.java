@@ -2,18 +2,28 @@ package com.example.demo.domain;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.*;
+import com.example.demo.dto.InscripcionDto;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityResult;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedNativeQuery;
+import jakarta.persistence.SqlResultSetMapping;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "inscripcion")
 @SqlResultSetMapping(name = "InscripcionMapping", entities = @EntityResult(entityClass = Inscripcion.class))
 @NamedNativeQuery(name = "Inscripcion.findAllWhereEstadoIsUsingNative", query = "SELECT i.* FROM inscripcion i WHERE i.estado = :estado", resultClass = Inscripcion.class, resultSetMapping = "InscripcionMapping")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Inscripcion {
@@ -42,10 +52,8 @@ public class Inscripcion {
     //@Convert(converter = EstadoConverter.class) // Deshabilitado porque EstadoConverter está con autoApply
     private Estado estado;
 
-    @Override
-    public String toString() {
-        return "Inscripcion[id=" + id + ", curso=" + curso + ", estudiante=" + estudiante + ", fecha=" + fecha
-                + ", estado=" + estado + "]";
+    public InscripcionDto convertToDto() {
+        return new InscripcionDto(this.id, this.curso.getId(), this.estudiante.getId(), this.fecha, this.estado);
     }
 
 }
