@@ -2,8 +2,6 @@ package com.example.demo.dto;
 
 import java.time.LocalDate;
 
-import com.example.demo.domain.Curso;
-import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion.Estado;
 
 import lombok.AllArgsConstructor;

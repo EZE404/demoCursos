@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class EstudianteDto {
-    private Long id;
+    //private Long id;
     private String nombre;
     private String apellido;
     private String dni;

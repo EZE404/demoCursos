@@ -23,11 +23,19 @@ public class EstudianteService {
     }
 
     public void save(EstudianteDto e) {
-        Estudiante estudiante = new Estudiante(null, e.getNombre(), e.getApellido(), e.getDni(), e.getEmail(), e.getNacimiento());
+        Estudiante estudiante = new Estudiante(null, e.getNombre(), e.getApellido(), e.getDni(), e.getEmail(),
+                e.getNacimiento());
         estudianteRepo.save(estudiante);
     }
 
     public void delete(long id) {
         estudianteRepo.deleteById(Long.valueOf(id));
+    }
+
+    public EstudianteDto update(long id, EstudianteDto dto) {
+        Estudiante estudiante = new Estudiante(Long.valueOf(id), dto.getNombre(), dto.getApellido(), dto.getDni(),
+                dto.getEmail(), dto.getNacimiento());
+
+        return estudianteRepo.saveAndFlush(estudiante).convertToDto();
     }
 }

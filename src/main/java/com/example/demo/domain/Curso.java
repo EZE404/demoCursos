@@ -45,7 +45,7 @@ public class Curso {
     }
 
     public CursoDto convertToDto() {
-        CursoDto cursoDto = new CursoDto(this.id, this.nombre, this.descripcion, this.inicio, this.fin);
+        CursoDto cursoDto = new CursoDto(this.nombre, this.descripcion, this.inicio, this.fin);
 
         return cursoDto;
     }

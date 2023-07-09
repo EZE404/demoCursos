@@ -43,6 +43,6 @@ public class Estudiante {
     }
 
     public EstudianteDto convertToDto() {
-        return new EstudianteDto(this.id, this.nombre, this.apellido, this.dni, this.email, this.nacimiento);
+        return new EstudianteDto(this.nombre, this.apellido, this.dni, this.email, this.nacimiento);
     }
 }
