@@ -12,6 +12,7 @@ import com.example.demo.domain.EstadoConverter;
 import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion;
 import com.example.demo.dto.InscripcionDto;
+import com.example.demo.exception.AgeNotAllowedException;
 import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.CursoRepo;
 import com.example.demo.repository.EstudianteRepo;
@@ -62,14 +63,14 @@ public class InscripcionService {
 
         @Transactional
         public void save(@NotNull @Positive Long curso_id, @NotNull @Positive Long estudiante_id)
-                        throws WrongIdException {
+                        throws WrongIdException, AgeNotAllowedException {
 
                 Curso curso = cursoRepo.findById(curso_id).orElseThrow(() -> new WrongIdException("Curso"));
                 Estudiante estudiante = estudianteRepo.findById(estudiante_id)
                                 .orElseThrow(() -> new WrongIdException("Estudiante"));
 
                 if (estudiante.getEdad() < 18) {
-                        throw new RuntimeException("Age not allowed");
+                        throw new AgeNotAllowedException();
                 }
 
                 Inscripcion inscripcion = new Inscripcion(null, curso, estudiante, LocalDate.now(),

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.CursoDto;
 import com.example.demo.service.CursoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/curso")
 public class CursoController {
@@ -32,7 +34,7 @@ public class CursoController {
     }
 
     @PostMapping
-    public void create(@RequestBody CursoDto e) {
+    public void create(@Valid @RequestBody CursoDto e) {
         cursoService.save(e);
     }
 

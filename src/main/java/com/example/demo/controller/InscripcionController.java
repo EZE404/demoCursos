@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.InscripcionDto;
+import com.example.demo.exception.AgeNotAllowedException;
 import com.example.demo.exception.WrongIdException;
 import com.example.demo.service.InscripcionService;
 
@@ -32,13 +33,8 @@ public class InscripcionController {
     }
 
     @PostMapping
-    public void create(@RequestBody InscripcionDto e) {
-        try {
-            inscripcionService.save(e.getCurso_id(), e.getEstudiante_id());
-        } catch (WrongIdException ex) {
-            System.out.println(ex);
-        }
-
+    public void create(@RequestBody InscripcionDto e) throws WrongIdException, AgeNotAllowedException {
+        inscripcionService.save(e.getCurso_id(), e.getEstudiante_id());
     }
 
     @DeleteMapping("/{id}")
