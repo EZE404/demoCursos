@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.CursoDto;
+import com.example.demo.exception.WrongIdException;
 import com.example.demo.service.CursoService;
 
 import jakarta.validation.Valid;
@@ -39,7 +40,7 @@ public class CursoController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable long id) throws WrongIdException {
         cursoService.delete(id);
     }
 

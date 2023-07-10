@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Estudiante;
 import com.example.demo.dto.EstudianteDto;
+import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.EstudianteRepo;
 
 @Service
@@ -28,7 +29,10 @@ public class EstudianteService {
         estudianteRepo.save(estudiante);
     }
 
-    public void delete(long id) {
+    public void delete(long id) throws WrongIdException {
+        if (!estudianteRepo.existsById(Long.valueOf(id)))
+        throw new WrongIdException("Estudiante");
+
         estudianteRepo.deleteById(Long.valueOf(id));
     }
 

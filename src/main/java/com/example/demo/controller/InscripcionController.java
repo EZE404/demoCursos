@@ -38,7 +38,7 @@ public class InscripcionController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable long id) throws WrongIdException {
         inscripcionService.delete(id);
     }
 }

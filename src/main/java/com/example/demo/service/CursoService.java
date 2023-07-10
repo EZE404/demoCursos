@@ -4,15 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.domain.Curso;
-import com.example.demo.domain.Curso;
 import com.example.demo.dto.CursoDto;
-import com.example.demo.dto.EstudianteDto;
-import com.example.demo.dto.CursoDto;
+import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.CursoRepo;
 
 @Service
@@ -33,7 +28,10 @@ public class CursoService {
         cursoRepo.save(curso);
     }
 
-    public void delete(long id) {
+    public void delete(long id) throws WrongIdException {
+        if (!cursoRepo.existsById(Long.valueOf(id)))
+            throw new WrongIdException("Curso");
+            
         cursoRepo.deleteById(Long.valueOf(id));
     }
 
