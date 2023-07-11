@@ -20,6 +20,7 @@ import com.example.demo.repository.CursoRepo;
 import com.example.demo.repository.EstudianteRepo;
 import com.example.demo.repository.InscripcionRepo;
 import com.example.demo.service.InscripcionService;
+import com.example.demo.tools.CollectionsFormatter;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -28,6 +29,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	// Para usarlo en consultas del módulo 3
 	@Autowired
 	CursoRepo cursoRepo;
 
@@ -36,10 +38,6 @@ public class DemoApplication {
 
 	@Autowired
 	InscripcionRepo inscripcionRepo;
-
-	// Para usarlo en evaluación de expresiones
-	EstadoConverter estadoConverter = new EstadoConverter();
-	PageRequest pageable = PageRequest.of(1, 5);
 
 	// Para la parte de armar service
 
@@ -53,9 +51,9 @@ public class DemoApplication {
 
 			cargarDatosPrueba();
 
-			// PROBANDO SERVICES Y CONSULTAS
+			// PROBANDO SERVICES Y CONSULTAS DE MOD3
 
-			//inscripcionService.probarConsultas();
+			probarConsultas();
 			agregarInscripcion();
 
 		};
@@ -135,5 +133,59 @@ public class DemoApplication {
 		inscripcionRepo.save(inscripcion4);
 		inscripcionRepo.save(inscripcion5);
 		inscripcionRepo.save(inscripcion6);
+	}
+
+	private void probarConsultas() {
+		EstadoConverter estadoConverter = new EstadoConverter();
+		PageRequest pageable = PageRequest.of(0, 2);
+
+		// CURSOS
+		System.out.println("cursoRepo.findAllByQuery()");
+		System.out.println(CollectionsFormatter.toStringList(cursoRepo.findAllByQuery()));
+		System.out.println("cursoRepo.findAllWhereInicioIsAfter01022020()");
+		System.out.println(CollectionsFormatter.toStringList(cursoRepo.findAllWhereInicioIsAfter01022020()));
+		System.out.println("cursoRepo.findByInicioGreaterThan(LocalDate.of(2020, Month.FEBRUARY, 1))");
+		System.out.println(CollectionsFormatter
+				.toStringList(cursoRepo.findByInicioGreaterThan(LocalDate.of(2020, Month.FEBRUARY, 1))));
+
+		// ESTUDIANTES
+		System.out.println("estudianteRepo.findAllByQuery()");
+		System.out.println(CollectionsFormatter.toStringList(estudianteRepo.findAllByQuery()));
+		System.out.println("estudianteRepo.findAllWhereDniGreaterThan20000000AndApellidoIsRomero()");
+		System.out.println(CollectionsFormatter
+				.toStringList(estudianteRepo.findAllWhereDniGreaterThan20000000AndApellidoIsRomero()));
+		System.out.println("estudianteRepo.findByDniGreaterThanAndApellidoIsIgnoreCase(\"20000000\", \"romero\")");
+		System.out.println(CollectionsFormatter
+				.toStringList(estudianteRepo.findByDniGreaterThanAndApellidoIsIgnoreCase("20000000", "romero")));
+		System.out.println("estudianteRepo.findByOrderByDniAsc(pageable).toList()");
+		System.out.println(CollectionsFormatter.toStringList(estudianteRepo.findByOrderByDniAsc(pageable).toList()));
+
+		// INSCRIPCIONES
+		System.out.println("inscripcionRepo.findAllWhereEstadoIsPendienteOrRechazada");
+		System.out
+				.println(CollectionsFormatter.toStringList(
+						inscripcionRepo.findAllWhereEstadoIsPendienteOrRechazada()));
+
+		System.out.println(
+				"inscripcionRepo.findByEstadoIsOrEstadoIs(Inscripcion.Estado.PENDIENTE, Inscripcion.Estado.RECHAZADA)");
+		System.out.println(CollectionsFormatter.toStringList(
+				inscripcionRepo.findByEstadoIsOrEstadoIs(Inscripcion.Estado.PENDIENTE,
+						Inscripcion.Estado.RECHAZADA)));
+
+		System.out.println("inscripcionRepo.findAllWhereEstadoIs(Inscripcion.Estado.ACEPTADA)");
+		System.out.println(
+				CollectionsFormatter.toStringList(
+						inscripcionRepo.findAllWhereEstadoIs(Inscripcion.Estado.ACEPTADA)));
+
+		System.out.println("inscripcionRepo.findByEstadoIs(Inscripcion.Estado.PENDIENTE)");
+		System.out.println(
+				CollectionsFormatter.toStringList(
+						inscripcionRepo.findByEstadoIs(Inscripcion.Estado.PENDIENTE)));
+
+		System.out.println(
+				"inscripcionRepo.findAllWhereEstadoIsUsingNative(new EstadoConverter().convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))");
+		System.out.println(CollectionsFormatter.toStringList(inscripcionRepo.findAllWhereEstadoIsUsingNative(
+				estadoConverter.convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))));
+
 	}
 }

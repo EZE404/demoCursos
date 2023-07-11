@@ -32,35 +32,6 @@ public class InscripcionService {
     @Autowired
     CursoRepo cursoRepo;
 
-    public void probarConsultas() {
-
-        System.out.println("inscripcionRepo.findAllWhereEstadoIsPendienteOrRechazada");
-        System.out
-                .println(CollectionsFormatter.toStringList(
-                        inscripcionRepo.findAllWhereEstadoIsPendienteOrRechazada()));
-
-        System.out.println(
-                "inscripcionRepo.findByEstadoIsOrEstadoIs(Inscripcion.Estado.PENDIENTE, Inscripcion.Estado.RECHAZADA)");
-        System.out.println(CollectionsFormatter.toStringList(
-                inscripcionRepo.findByEstadoIsOrEstadoIs(Inscripcion.Estado.PENDIENTE,
-                        Inscripcion.Estado.RECHAZADA)));
-
-        System.out.println("inscripcionRepo.findAllWhereEstadoIs(Inscripcion.Estado.ACEPTADA)");
-        System.out.println(
-                CollectionsFormatter.toStringList(
-                        inscripcionRepo.findAllWhereEstadoIs(Inscripcion.Estado.ACEPTADA)));
-
-        System.out.println("inscripcionRepo.findByEstadoIs(Inscripcion.Estado.PENDIENTE)");
-        System.out.println(
-                CollectionsFormatter.toStringList(
-                        inscripcionRepo.findByEstadoIs(Inscripcion.Estado.PENDIENTE)));
-
-        System.out.println(
-                "inscripcionRepo.findAllWhereEstadoIsUsingNative(new EstadoConverter().convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))");
-        System.out.println(CollectionsFormatter.toStringList(inscripcionRepo.findAllWhereEstadoIsUsingNative(
-                new EstadoConverter().convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))));
-    }
-
     @Transactional
     public void save(@NotNull @Positive Long curso_id, @NotNull @Positive Long estudiante_id)
             throws WrongIdException, AgeNotAllowedException {
