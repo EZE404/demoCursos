@@ -183,7 +183,7 @@ public class DemoApplication {
 						inscripcionRepo.findByEstadoIs(Inscripcion.Estado.PENDIENTE)));
 
 		System.out.println(
-				"inscripcionRepo.findAllWhereEstadoIsUsingNative(new EstadoConverter().convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))");
+				"inscripcionRepo.findAllWhereEstadoIsUsingNative(estadoConverter.convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))");
 		System.out.println(CollectionsFormatter.toStringList(inscripcionRepo.findAllWhereEstadoIsUsingNative(
 				estadoConverter.convertToDatabaseColumn(Inscripcion.Estado.ACEPTADA))));
 

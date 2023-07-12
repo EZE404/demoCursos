@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Curso;
-import com.example.demo.domain.EstadoConverter;
 import com.example.demo.domain.Estudiante;
 import com.example.demo.domain.Inscripcion;
 import com.example.demo.dto.InscripcionDto;
@@ -17,7 +16,6 @@ import com.example.demo.exception.WrongIdException;
 import com.example.demo.repository.CursoRepo;
 import com.example.demo.repository.EstudianteRepo;
 import com.example.demo.repository.InscripcionRepo;
-import com.example.demo.tools.CollectionsFormatter;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
